@@ -4,33 +4,23 @@ import 'package:teste_apod/app/core/utils/app_global_variables.dart';
 
 class ApodLocalRepository {
   SharedPreferences? _sharedPreferences;
+  final List<ApodModel> items = [];
 
   Future<void> init() async {
+    //Caso o SharedPreferences esteja nulo eu crio uma instancia dele
     _sharedPreferences ??= await SharedPreferences.getInstance();
   }
 
   Future<List<ApodModel>> getAll() async {
     await init();
 
-    final result = _sharedPreferences!
+    final List<String>? result = _sharedPreferences!
         .getStringList(AppGlobalVariables.keySharedPreferences);
 
-    final list = result?.map(
-          (e) {
-            return ApodModel.fromJson(e);
-          },
-        ).toList() ??
-        [];
-
-    list.sort(
-      (a, b) {
-        return b.date.compareTo(a.date);
-      },
-    );
-
-    return list;
+    return _stringListToModelList(result);
   }
 
+  //Verifico se existe o registro salvo na lista do SharedPreferences
   Future<bool> get(ApodModel value) async {
     final result = await getAll();
 
@@ -46,15 +36,7 @@ class ApodLocalRepository {
     final result = await getAll();
     result.add(value);
 
-    result.sort(
-      (a, b) {
-        return b.date.compareTo(a.date);
-      },
-    );
-
-    await _set(result);
-
-    return result;
+    return await _saveAndSortList(result);
   }
 
   Future<List<ApodModel>> remove(ApodModel value) async {
@@ -66,18 +48,31 @@ class ApodLocalRepository {
       },
     );
 
-    result.sort(
+    return await _saveAndSortList(result);
+  }
+
+  //Converto a lista de strings para uma lista de ApodModel
+  List<ApodModel> _stringListToModelList(List<String>? value) {
+    final List<ApodModel> tempList =
+        value?.map(ApodModel.fromJson).toList() ?? [];
+
+    tempList.sort(
       (a, b) {
         return b.date.compareTo(a.date);
       },
     );
 
-    await _set(result);
-
-    return result;
+    return tempList;
   }
 
-  Future<void> _set(List<ApodModel> value) async {
+  //Salvo a lista de modelos no SharedPreferences em forma de list da json
+  Future<List<ApodModel>> _saveAndSortList(List<ApodModel> value) async {
+    value.sort(
+      (a, b) {
+        return b.date.compareTo(a.date);
+      },
+    );
+
     await _sharedPreferences!.setStringList(
         AppGlobalVariables.keySharedPreferences,
         value.map(
@@ -85,5 +80,7 @@ class ApodLocalRepository {
             return e.toJson();
           },
         ).toList());
+
+    return value;
   }
 }

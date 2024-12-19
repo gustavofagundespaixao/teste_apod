@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:teste_apod/app/core/widgets/apod_details/apod_widget_detail.dart';
+import 'package:teste_apod/app/core/widgets/apod_details/apod_detail_widget.dart';
 
 class DetailPage extends GetView {
   static String routeName = '/details';
@@ -13,7 +13,7 @@ class DetailPage extends GetView {
       appBar: AppBar(
         title: const Text('Detalhe'),
       ),
-      body: ApodWidgetDetail(value: Get.arguments, showDate: true),
+      body: ApodDetailWidget(value: Get.arguments, showDate: true),
     );
   }
 }

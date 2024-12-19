@@ -12,23 +12,38 @@ class ApodImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12, left: 12, right: 12),
-      child: InkWell(
-        onTap: () {
-          Get.toNamed(ImagePage.routeName, arguments: value.url);
-        },
-        child: Hero(
-          tag: value.url,
-          child: CachedNetworkImage(
-            scale: 16 / 9,
-            imageUrl: value.url,
-            progressIndicatorBuilder: (context, url, progress) {
-              return AppLoadingWidget();
+    return Column(
+      spacing: 6,
+      children: [
+        Card(
+          margin: EdgeInsets.zero,
+          child: GestureDetector(
+            onTap: () {
+              Get.toNamed(ImagePage.routeName, arguments: value.url);
             },
+            child: Hero(
+              tag: value.url,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: CachedNetworkImage(
+                  imageUrl: value.url,
+                  height: 200,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  scale: 16 / 9,
+                  progressIndicatorBuilder: (context, url, progress) {
+                    return AppLoadingWidget();
+                  },
+                ),
+              ),
+            ),
           ),
         ),
-      ),
+        const Text(
+          'Clique na imagem para abrir em tela cheia',
+          style: TextStyle(fontSize: 12),
+        ),
+      ],
     );
   }
 }

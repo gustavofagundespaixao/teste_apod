@@ -36,13 +36,16 @@ class _ApodVideoWidgetState extends State<ApodVideoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12, left: 12, right: 12),
-      child: YoutubePlayer(
-        aspectRatio: 16 / 9,
-        controller: _controller,
-        progressIndicatorColor: Theme.of(context).progressIndicatorTheme.color,
-        showVideoProgressIndicator: true,
+    return Card(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: YoutubePlayer(
+          aspectRatio: 16 / 9,
+          controller: _controller,
+          progressIndicatorColor:
+              Theme.of(context).progressIndicatorTheme.color,
+          showVideoProgressIndicator: true,
+        ),
       ),
     );
   }

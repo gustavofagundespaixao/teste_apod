@@ -56,8 +56,8 @@ class ApodModel {
           AppDateFormat.dateToStringFormat(value: date, format: 'yyyy-MM-dd'),
       'explanation': explanation,
       'hdurl': hdurl,
-      'mediaType': mediaType,
-      'serviceVersion': serviceVersion,
+      'media_type': mediaType,
+      'service_version': serviceVersion,
       'title': title,
       'url': url,
     };
@@ -83,7 +83,7 @@ class ApodModel {
 
   @override
   String toString() {
-    return 'ApodModel(copyright: $copyright, date: $date, explanation: $explanation, hdurl: $hdurl, mediaType: $mediaType, serviceVersion: $serviceVersion, title: $title, url: $url)';
+    return 'ApodModel(copyright: $copyright, date: $date, explanation: $explanation, hdurl: $hdurl, media_type: $mediaType, service_version: $serviceVersion, title: $title, url: $url)';
   }
 
   @override

@@ -8,8 +8,11 @@ class AppBindings implements Bindings {
   @override
   void dependencies() {
     Get.put(AppClient());
-    Get.put(ApodLocalRepository());
     Get.put(AppController());
+
+    //Aqui carrego os favoritos gravados localmente utilizando o shared_preferences e atribuo uma variável
+    //observavel em FavoriteController para que todo meu aplicativo possa ouvir as alterações
+    Get.put(ApodLocalRepository());
     Get.put(FavoriteController(Get.find()));
   }
 }

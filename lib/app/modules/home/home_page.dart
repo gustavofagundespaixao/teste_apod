@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:teste_apod/app/core/models/apod_model.dart';
-import 'package:teste_apod/app/core/widgets/apod_details/apod_widget_detail.dart';
+import 'package:teste_apod/app/core/widgets/apod_details/apod_detail_widget.dart';
 import 'package:teste_apod/app/core/widgets/app_empty_widget.dart';
 import 'package:teste_apod/app/core/widgets/app_error_widget.dart';
 import 'package:teste_apod/app/core/widgets/app_loading_widget.dart';
@@ -43,7 +43,7 @@ class HomePage extends GetView<HomeController> {
             } else if (snapshot.data == null) {
               return AppEmptyWidget();
             } else {
-              return ApodWidgetDetail(value: snapshot.data!);
+              return ApodDetailWidget(value: snapshot.data!);
             }
           },
         );

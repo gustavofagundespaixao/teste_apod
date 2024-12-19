@@ -18,11 +18,5 @@ class AppClient {
     Map<String, dynamic>? queryParameters,
   }) async {
     return await _dio.get(path, queryParameters: queryParameters);
-
-    // if (result.statusCode == 200) {
-    //   return result;
-    // } else {
-    //   throw result.statusMessage ?? 'Ocorreu um erro';
-    // }
   }
 }
